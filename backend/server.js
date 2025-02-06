@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import productRoutes from './routes/productRoutes.js';
 
 dotenv.config();
 
@@ -16,9 +17,7 @@ app.use(morgan('dev')); // morgan is a middleware that logs HTTP requests. It's 
 app.use(express.json()); // express.json() is a middleware that parses incoming requests with JSON payloads.
 
 //routes
-app.get('/', (req, res) => {
-  res.send('Hello World from the backend');
-});
+app.use('/api/v1/products', productRoutes);
 
 //start server
 app.listen(PORT, () => {
