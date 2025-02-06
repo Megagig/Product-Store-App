@@ -5,14 +5,13 @@ export const getAllProducts = async (req, res) => {
     SELECT * FROM products
     ORDER BY created_at DESC
     `;
-    console.log('fetched products', products);
+
     res.status(200).json({ success: true, data: products });
   } catch (error) {
     console.log('error fetching products', error);
     res.status(500).json({ success: false, message: 'Internal Server error' });
   }
 };
-
 export const createProduct = async (req, res) => {
   const { name, image, price } = req.body;
 
@@ -74,7 +73,11 @@ export const updateProduct = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'Product not found' });
     }
-    res.status(200).json({ success: true, data: updatedProduct[0] });
+    res.status(200).json({
+      success: true,
+      message: 'Product Updated Successfully',
+      data: updatedProduct[0],
+    });
   } catch (error) {
     console.log('error updating product', error);
     res.status(500).json({ success: false, message: 'Internal Server error' });
@@ -95,7 +98,11 @@ export const deleteProduct = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'Product not found' });
     }
-    res.status(200).json({ success: true, data: deletedProduct[0] });
+    res.status(200).json({
+      success: true,
+      message: 'Product deleted Successfully',
+      data: deletedProduct[0],
+    });
   } catch (error) {
     console.log('Error deleting Product', error);
     res.status(500).json({ status: false, message: 'internal server error' });
