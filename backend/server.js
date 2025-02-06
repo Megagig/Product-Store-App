@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import productRoutes from './routes/productRoutes.js';
+import { sql } from './config/dbConnect.js';
 
 dotenv.config();
 
@@ -19,7 +20,25 @@ app.use(express.json()); // express.json() is a middleware that parses incoming 
 //routes
 app.use('/api/v1/products', productRoutes);
 
+//Initialize Database
+async function dbConnect() {
+  try {
+    await sql`
+    CREATE TABLE IF NOT EXISTS products (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      image VARCHAR(255) NOT NULL,
+      price DECIMAL(10, 2) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )`;
+    console.log('Database connected successfully');
+  } catch (error) {
+    console.log('Error connecting to database: ', error.message);
+  }
+}
 //start server
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+dbConnect().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 });
