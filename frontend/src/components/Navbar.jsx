@@ -51,7 +51,9 @@ const Navbar = () => {
             : 'ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]'
         }
       >
-        <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">REACT.</h1>
+        <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">
+          MEGAGIG
+        </h1>
         {navItems.map((item) => (
           <li
             key={item.id}
