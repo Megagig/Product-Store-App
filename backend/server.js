@@ -18,20 +18,18 @@ app.use(helmet()); //helmet is a security middleware that helps you protect your
 app.use(morgan('dev')); // morgan is a middleware that logs HTTP requests. It's a great tool for debugging and seeing what requests are coming in.
 app.use(express.json()); // express.json() is a middleware that parses incoming requests with JSON payloads.
 
-//apply arcjet rate limit to all routes
-
+/// apply arcjet rate-limit to all routes
 app.use(async (req, res, next) => {
   try {
     const decision = await aj.protect(req, {
-      requested: 1, // specifies that each request consumes  1 token
+      requested: 1, // specifies that each request consumes 1 token
     });
+
     if (decision.isDenied()) {
       if (decision.reason.isRateLimit()) {
-        res.status(429).json({ error: 'Too many requests' });
+        res.status(429).json({ error: 'Too Many Requests' });
       } else if (decision.reason.isBot()) {
-        res.status(403).json({ error: 'Bot detected, access denied' });
-      } else if (decision.reason.isShield()) {
-        res.status(403).json({ error: 'Access denied' });
+        res.status(403).json({ error: 'Bot access denied' });
       } else {
         res.status(403).json({ error: 'Forbidden' });
       }
@@ -40,11 +38,11 @@ app.use(async (req, res, next) => {
 
     // check for spoofed bots
     if (
-      decision.result.some(
-        (result) => result.isBot() && result.reason.isSpoofed()
+      decision.results.some(
+        (result) => result.reason.isBot() && result.reason.isSpoofed()
       )
     ) {
-      res.status(403).json({ error: 'Spoofed Bot detected, access denied' });
+      res.status(403).json({ error: 'Spoofed bot detected' });
       return;
     }
 
@@ -52,7 +50,6 @@ app.use(async (req, res, next) => {
   } catch (error) {
     console.log('Arcjet error', error);
     next(error);
-    res.status(429).json({ message: 'Too many requests' });
   }
 });
 
