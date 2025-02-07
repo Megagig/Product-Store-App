@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useResolvedPath } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { ShoppingBagIcon } from 'lucide-react';
+import ThemeSelector from './ThemeSelector';
 
 const Navbar = () => {
   // State to manage the navbar's visibility
@@ -18,15 +20,17 @@ const Navbar = () => {
     { id: 3, text: 'About', path: '/about' },
     { id: 4, text: 'Contact', path: '/contact' },
     { id: 5, text: 'Register', path: '/register' },
+    // { id: 6, text: 'ThemeSelector', path: '/theme' },
   ];
+
+  const { pathname } = useResolvedPath();
+  const isHomePage = pathname === '/';
+  const products = []; // Replace with your actual products array
 
   return (
     <div className="bg-black flex justify-between items-center h-24 w-full px-4 text-white">
       <Link to="/">
-        {' '}
-        <h1 className="w-full text-3xl font-bold text-[#00df9a]">
-          MEGAGIG
-        </h1>{' '}
+        <h1 className="w-full text-3xl font-bold text-[#00df9a]">MEGAGIG</h1>
       </Link>
 
       <ul className="hidden md:flex">
@@ -39,6 +43,21 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
+
+      <div className="flex items-center gap-4">
+        <ThemeSelector />
+
+        {isHomePage && (
+          <div className="indicator">
+            <div className="p-2 rounded-full hover:bg-base-200 transition-colors">
+              <ShoppingBagIcon className="size-5" />
+              <span className="badge badge-sm badge-primary indicator-item">
+                {products.length}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
 
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}

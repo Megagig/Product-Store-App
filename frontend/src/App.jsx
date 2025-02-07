@@ -9,12 +9,14 @@ import Contact from './pages/Contact.jsx';
 import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { useThemeStore } from './store/useThemeStore.js';
 
 function App() {
+  const { theme } = useThemeStore();
   return (
     <div
       className="min-h-screen bg-base-200 transition-colors duration-300"
-      data-theme="forest"
+      data-theme={theme}
     >
       <Navbar />
       <Routes>
