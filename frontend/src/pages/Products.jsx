@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useProductStore } from '../store/useProductStore';
 import { PackageIcon, PlusCircleIcon, RefreshCwIcon } from 'lucide-react';
 import AddProductModal from '../components/AddProductModal';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../components/ProductCard ';
 
 function Products() {
   const { products, loading, error, fetchProducts } = useProductStore();
@@ -32,7 +32,7 @@ function Products() {
 
       {error && <div className="alert alert-error mb-8">{error}</div>}
 
-      {!loading && (!products || products.length === 0) && (
+      {products?.length === 0 && !loading && (
         <div className="flex flex-col justify-center items-center h-96 space-y-4">
           <div className="bg-base-100 rounded-full p-6">
             <PackageIcon className="size-12" />
