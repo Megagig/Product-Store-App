@@ -1,7 +1,18 @@
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage.jsx';
+import ProductPage from './pages/ProductPage.jsx';
+// import ProductDetailPage from './pages/ProductDetailPage.jsx';
+import Navbar from './components/Navbar';
+
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline align-middle">App</h1>
+    <div className="min-h-screen bg-base-200 transition-colors duration-300">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<ProductPage />} />
+        {/* <Route path="/product/:id" element={<ProductDetailPage />} /> */}
+      </Routes>
     </div>
   );
 }
