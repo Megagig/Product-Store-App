@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useProductStore } from '../store/useProductStore';
 import { PackageIcon, PlusCircleIcon, RefreshCwIcon } from 'lucide-react';
-
-// import AddProductModal from '../components/AddProductModal';
+import AddProductModal from '../components/AddProductModal';
 import ProductCard from '../components/ProductCard ';
 
 function Products() {
@@ -29,7 +28,7 @@ function Products() {
         </button>
       </div>
 
-      {/* <AddProductModal /> */}
+      <AddProductModal />
 
       {error && <div className="alert alert-error mb-8">{error}</div>}
 
