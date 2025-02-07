@@ -3,7 +3,7 @@ import HomePage from './pages/HomePage.jsx';
 import ProductPage from './pages/ProductPage.jsx';
 // import ProductDetailPage from './pages/ProductDetailPage.jsx';
 import Navbar from './components/Navbar';
-import Resources from './pages/Resources';
+import Products from './pages/Products';
 import Company from './pages/Company';
 import Contact from './pages/Contact.jsx';
 import About from './pages/About';
@@ -21,8 +21,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductPage />} />
-        <Route path="/resources" element={<Resources />} />
+        <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/company" element={<Company />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
